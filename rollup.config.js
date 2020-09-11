@@ -3,12 +3,13 @@ import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
+import postcss from 'rollup-plugin-postcss'
 
 const production = !process.env.ROLLUP_WATCH;
 
 function serve() {
 	let server;
-	
+
 	function toExit() {
 		if (server) server.kill(0);
 	}
@@ -44,6 +45,9 @@ export default {
 			css: css => {
 				css.write('bundle.css');
 			}
+		}),
+		postcss({
+			plugins: []
 		}),
 
 		// If you have external dependencies installed from
